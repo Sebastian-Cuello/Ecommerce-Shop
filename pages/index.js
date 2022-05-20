@@ -5,21 +5,21 @@ import { Product, FooterBanner, HeroBanner } from '../components';
 const Home = ({ products, bannerData }) => {
   return (
     <>
-    <HeroBanner  heroBanner={bannerData.length && bannerData[0]} />
+    <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
     <div className='products-heading'>
       <h2>Best Selling Products</h2>
       <p>Speakers of many variations</p>
     </div>
     <div className='products-container'>
       {console.log(products)}
-      {products?.map((product) => <Product />)}
+      {products?.map((product) => <Product key={product.id} product={product}/>)}
     </div>
-    <FooterBanner />
+    <FooterBanner footerBanner={bannerData && bannerData[0]}/>
     </>
   )
 }
 
-// Función para agarrar los campos desde sanity
+// Función para agarrar los campos desde sanity (fetch)
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]'; // Aquí agarramos todos los productos de sanity
   const products = await client.fetch(query);
